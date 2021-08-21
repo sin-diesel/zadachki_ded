@@ -371,6 +371,7 @@ int main()
 	double roots[2] = { nan(""), nan("") };
 	int amount_of_roots = solveEquation(a, b, c, roots);
 	outResult(amount_of_roots, roots);
+
 	getchar();
 
 }
