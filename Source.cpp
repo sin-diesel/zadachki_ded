@@ -19,7 +19,8 @@ double abs(double a)
 {
 	return a > 0 ? a : -a;
 }
-#define PRECISION 0.00001
+
+const double PRECISION = 0.00001;
 bool equal(double a, double b)
 {
 	return abs(a - b) < PRECISION;
