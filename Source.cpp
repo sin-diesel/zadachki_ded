@@ -31,9 +31,9 @@ void clearBuff()
 	while ((c = getchar()) != '\n' && c != EOF) {}
 }
 /// <summary>
-/// Запрашивает у пользователя значение double через консоль до тех пор, пока он не введет корректное
+/// asks for enter double input to console until input is correct
 /// </summary>
-/// <returns>Запрошенное значение</returns>
+/// <returns>entered input</returns>
 double getValue()
 {
 	double value = nan("");
@@ -48,8 +48,11 @@ double getValue()
 	return value;
 }
 /// <summary>
-/// Запрашивает у пользователя из консоли коэффициенты квадратного уравнения
+/// gets coefficients for quadratic equation from user by console input
 /// </summary>
+/// <param name="a">first coefficient</param>
+/// <param name="b">second coefficient</param>
+/// <param name="c">third coefficient</param>
 void getCoefficients(double* a, double* b, double* c)
 {
 	assert(a != nullptr && b != nullptr && c != nullptr);
@@ -66,10 +69,12 @@ bool isCorrectRootsAmount(int n)
 	return n != EQUATION_RESULT_OVERFLOW_ERROR && n != EQUATION_RESULT_INFINITE_ROOTS;
 }
 /// <summary>
-/// Решает линейное уравнение
+/// Solves linear equation
 /// </summary>
-/// <param name="res">Массив куда запишется корень</param>
-/// <returns>Количество корней</returns>
+/// <param name="a">coefficient</param>
+/// <param name="b">coefficient</param>
+/// <param name="res">array where root is written</param>
+/// <returns>amount of roots</returns>
 int solveLinear(double a, double b, double * res)
 {
 	assert(res != nullptr);
@@ -90,10 +95,13 @@ int solveLinear(double a, double b, double * res)
 
 }
 /// <summary>
-/// Решает квадратное полное невырожденное уравнение
+/// solves full quadratic equation
 /// </summary>
-/// <param name="res">Массив куда запишутся корни</param>
-/// <returns>Количество корней уравнения</returns>
+/// <param name="a">coefficient</param>
+/// <param name="b">coefficient</param>
+/// <param name="c">coefficient</param>
+/// <param name="res">array where roots are written</param>
+/// <returns>amount of roots</returns>
 int solveQuadratic(double a, double b, double c, double * res)
 {
 	assert(res != nullptr);
@@ -122,10 +130,12 @@ int solveQuadratic(double a, double b, double c, double * res)
 	}
 }
 /// <summary>
-/// Решает квадратное уравнение с отсутствующим линейным членом
+/// solves quadratic equation without coefficient of linear member
 /// </summary>
-/// <param name="res">Массив куда запишутся корни</param>
-/// <returns>Количество корней</returns>
+/// <param name="a">coefficient</param>
+/// <param name="c">coefficient</param>
+/// <param name="res">array where roots are written</param>
+/// <returns>amount of roots</returns>
 int solveIncomplete(double a, double c, double* res)
 {
 	assert(res != nullptr);
@@ -143,10 +153,12 @@ int solveIncomplete(double a, double c, double* res)
 	return 2;
 }
 /// <summary>
-/// Решает квадратное уравнение вида x(ax+b) == 0
+/// solves quadratic equation that looks like x(ax+b)==0
 /// </summary>
-/// <param name="res">массив куда запишутся корни</param>
-/// <returns>Количество корней</returns>
+/// <param name="a">coefficient</param>
+/// <param name="b">coefficient</param>
+/// <param name="res">array where roots are written</param>
+/// <returns>amount of roots</returns>
 int solveAlmostLinear(double a, double b, double* res)
 {
 	assert(!equal(b, 0) && res != nullptr);
@@ -159,10 +171,13 @@ int solveAlmostLinear(double a, double b, double* res)
 	return lin_res;
 }
 /// <summary>
-/// Решает квадратное уравнение во всех вариантах
+/// solves quadratic equation at all cases
 /// </summary>
-/// <param name="res">Массив куда запишутся корни</param>
-/// <returns>Количество корней</returns>
+/// <param name="a">coefficient</param>
+/// <param name="b">coefficient</param>
+/// <param name="c">coefficient</param>
+/// <param name="res">array where roots are written</param>
+/// <returns>amount of roots</returns>
 int solveEquation(double a, double b, double c, double* res)
 {
 	assert(res != nullptr);
@@ -175,8 +190,10 @@ int solveEquation(double a, double b, double c, double* res)
 	return solveQuadratic(a, b, c, res);
 }
 /// <summary>
-/// Выводит результат решения квадратного уравнения в консоль
+/// writes result of quadratic equation to console with appropriate message
 /// </summary>
+/// <param name="amount_of_roots"></param>
+/// <param name="roots"></param>
 void outResult(int amount_of_roots, double* roots)
 {
 	assert(roots != nullptr);
@@ -209,12 +226,12 @@ enum TestResult
 	TEST_RESULT_OK
 };
 /// <summary>
-/// Выводит сообщение об ошибке в тесте в консоль
+/// whites error test message to console with appropriate form
 /// </summary>
-/// <param name="test">Тип  ошибки</param>
-/// <param name="amount">Количество получившихся корней уравнения</param>
-/// <param name="roots">Получившиеся корни</param>
-/// <param name="test_number">Номер теста</param>
+/// <param name="test"></param>
+/// <param name="amount"></param>
+/// <param name="roots"></param>
+/// <param name="test_number"></param>
 void outErrorTestMessage(TestResult test, int amount, double * roots, int test_number)
 {
 	assert(roots != nullptr);
@@ -235,12 +252,12 @@ void outErrorTestMessage(TestResult test, int amount, double * roots, int test_n
 	getchar();
 }
 /// <summary>
-/// Выводит сообщение о результате теста
+/// writes any test result to console
 /// </summary>
-/// <param name="test">Тип результата: корректно или тип ошибки</param>
-/// <param name="amount">Количество получившихся корней уравнения</param>
-/// <param name="roots">Получившиеся корни</param>
-/// <param name="test_number">Номер теста</param>
+/// <param name="test"></param>
+/// <param name="amount"></param>
+/// <param name="roots"></param>
+/// <param name="test_number"></param>
 void outTestMessage(TestResult test, int amount, double* roots, int test_number)
 {
 	assert(roots != nullptr);
@@ -250,11 +267,15 @@ void outTestMessage(TestResult test, int amount, double* roots, int test_number)
 		outErrorTestMessage(test, amount, roots, test_number);
 }
 /// <summary>
-/// Проверяет равны ли множества корней квадратного уравнения
+/// checks if sets of roots are match
 /// </summary>
-/// <returns>true если множества равны независимо от порядка и false иначе</returns>
+/// <param name="a">array with size up to 2</param>
+/// <param name="b">array with size equall to size of a</param>
+/// <param name="size">size of these two arrays</param>
+/// <returns>true if sets are match independetly of order</returns>
 bool equalRootsArray(double* a, double* b, int size)
 {
+	assert(a != nullptr && b != nullptr);
 	for (int i = 0; i < size; ++i)
 		if (!equal(a[i], b[i]) && !equal(a[size - i - 1], b[i]))
 			return false;
@@ -263,10 +284,16 @@ bool equalRootsArray(double* a, double* b, int size)
 
 typedef void (*OutFunction)(TestResult, int, double*, int);
 /// <summary>
-/// Производит тестирование уравнения: принимает коэффициенты уравнения и ожидаемый результат, вычисляет собственный ответ и сравнивает
+/// gets equation and expected result, solves equation and checks if result is matching with expected
 /// </summary>
-/// <param name="out">Функция, которая выведет результат теста (куда - неважно). Если nullptr, то вывод игнорируется</param>
-/// <returns>true если тест верный и false иначе</returns>
+/// <param name="a">coefficient</param>
+/// <param name="b">coefficient</param>
+/// <param name="c">coefficient</param>
+/// <param name="expected_amount_of_roots"></param>
+/// <param name="expected_roots"></param>
+/// <param name="test_number"></param>
+/// <param name="out">function that logs test result somehow</param>
+/// <returns>true if test is correct and false otherwise</returns>
 bool  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number, OutFunction out)
 {
 	assert(expected_roots != nullptr);
@@ -299,6 +326,7 @@ bool  systTestEquation(double a, double b, double c, int expected_amount_of_root
 
 
 }
+
 bool  testEquation(double a, double b, double c, int expected_amount_of_roots, int test_number, OutFunction out)
 {
 	double roots = nan("");
@@ -314,7 +342,7 @@ bool testEquation(double a, double b, double c, int expected_amount_of_roots, do
 	return systTestEquation(a, b, c, expected_amount_of_roots, roots, test_number, out);
 }
 /// <summary>
-/// Производит тестирование решения квадратного уравнения на некотором наборе примеров
+/// test solving equation module on some prepared tests
 /// </summary>
 void testing()
 {
@@ -343,6 +371,7 @@ int main()
 	double roots[2] = { nan(""), nan("") };
 	int amount_of_roots = solveEquation(a, b, c, roots);
 	outResult(amount_of_roots, roots);
+
 	getchar();
 
 }
