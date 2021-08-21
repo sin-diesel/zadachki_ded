@@ -27,7 +27,7 @@ bool equal(double a, double b)
 }
 void clearBuff()
 {
-	char c;
+	char c = 0;
 	while ((c = getchar()) != '\n' && c != EOF) {}
 }
 /// <summary>
@@ -344,6 +344,7 @@ bool testEquation(double a, double b, double c, int expected_amount_of_roots, do
 /// <summary>
 /// test solving equation module on some prepared tests
 /// </summary>
+
 void testing()
 {
 	testEquation(1, -8, 15, 2, 3, 5, 1, outTestMessage);
