@@ -30,6 +30,10 @@ void clearBuff()
 	char c;
 	while ((c = getchar()) != '\n' && c != EOF) {}
 }
+/// <summary>
+/// Запрашивает у пользователя значение double через консоль до тех пор, пока он не введет корректное
+/// </summary>
+/// <returns>Запрошенное значение</returns>
 double getValue()
 {
 	double value = nan("");
@@ -43,6 +47,9 @@ double getValue()
 	}
 	return value;
 }
+/// <summary>
+/// Запрашивает у пользователя из консоли коэффициенты квадратного уравнения
+/// </summary>
 void getCoefficients(double* a, double* b, double* c)
 {
 	assert(a != nullptr && b != nullptr && c != nullptr);
@@ -58,6 +65,11 @@ bool isCorrectRootsAmount(int n)
 {
 	return n != EQUATION_RESULT_OVERFLOW_ERROR && n != EQUATION_RESULT_INFINITE_ROOTS;
 }
+/// <summary>
+/// Решает линейное уравнение
+/// </summary>
+/// <param name="res">Массив куда запишется корень</param>
+/// <returns>Количество корней</returns>
 int solveLinear(double a, double b, double * res)
 {
 	assert(res != nullptr);
@@ -77,7 +89,11 @@ int solveLinear(double a, double b, double * res)
 	}
 
 }
-
+/// <summary>
+/// Решает квадратное полное невырожденное уравнение
+/// </summary>
+/// <param name="res">Массив куда запишутся корни</param>
+/// <returns>Количество корней уравнения</returns>
 int solveQuadratic(double a, double b, double c, double * res)
 {
 	assert(res != nullptr);
@@ -105,7 +121,11 @@ int solveQuadratic(double a, double b, double c, double * res)
 		return 2;
 	}
 }
-
+/// <summary>
+/// Решает квадратное уравнение с отсутствующим линейным членом
+/// </summary>
+/// <param name="res">Массив куда запишутся корни</param>
+/// <returns>Количество корней</returns>
 int solveIncomplete(double a, double c, double* res)
 {
 	assert(res != nullptr);
@@ -122,6 +142,11 @@ int solveIncomplete(double a, double c, double* res)
 	res[1] = -mod;
 	return 2;
 }
+/// <summary>
+/// Решает квадратное уравнение вида x(ax+b) == 0
+/// </summary>
+/// <param name="res">массив куда запишутся корни</param>
+/// <returns>Количество корней</returns>
 int solveAlmostLinear(double a, double b, double* res)
 {
 	assert(!equal(b, 0) && res != nullptr);
@@ -133,6 +158,11 @@ int solveAlmostLinear(double a, double b, double* res)
 	}
 	return lin_res;
 }
+/// <summary>
+/// Решает квадратное уравнение во всех вариантах
+/// </summary>
+/// <param name="res">Массив куда запишутся корни</param>
+/// <returns>Количество корней</returns>
 int solveEquation(double a, double b, double c, double* res)
 {
 	assert(res != nullptr);
@@ -144,7 +174,9 @@ int solveEquation(double a, double b, double c, double* res)
 		return solveAlmostLinear(a, b, res);
 	return solveQuadratic(a, b, c, res);
 }
-
+/// <summary>
+/// Выводит результат решения квадратного уравнения в консоль
+/// </summary>
 void outResult(int amount_of_roots, double* roots)
 {
 	assert(roots != nullptr);
@@ -176,6 +208,13 @@ enum TestResult
 	TEST_RESULT_WRONG_ROOTS,
 	TEST_RESULT_OK
 };
+/// <summary>
+/// Выводит сообщение об ошибке в тесте в консоль
+/// </summary>
+/// <param name="test">Тип  ошибки</param>
+/// <param name="amount">Количество получившихся корней уравнения</param>
+/// <param name="roots">Получившиеся корни</param>
+/// <param name="test_number">Номер теста</param>
 void outErrorTestMessage(TestResult test, int amount, double * roots, int test_number)
 {
 	assert(roots != nullptr);
@@ -195,6 +234,13 @@ void outErrorTestMessage(TestResult test, int amount, double * roots, int test_n
 	}
 	getchar();
 }
+/// <summary>
+/// Выводит сообщение о результате теста
+/// </summary>
+/// <param name="test">Тип результата: корректно или тип ошибки</param>
+/// <param name="amount">Количество получившихся корней уравнения</param>
+/// <param name="roots">Получившиеся корни</param>
+/// <param name="test_number">Номер теста</param>
 void outTestMessage(TestResult test, int amount, double* roots, int test_number)
 {
 	assert(roots != nullptr);
@@ -203,6 +249,10 @@ void outTestMessage(TestResult test, int amount, double* roots, int test_number)
 	else
 		outErrorTestMessage(test, amount, roots, test_number);
 }
+/// <summary>
+/// Проверяет равны ли множества корней квадратного уравнения
+/// </summary>
+/// <returns>true если множества равны независимо от порядка и false иначе</returns>
 bool equalRootsArray(double* a, double* b, int size)
 {
 	for (int i = 0; i < size; ++i)
@@ -212,6 +262,11 @@ bool equalRootsArray(double* a, double* b, int size)
 }
 
 typedef void (*OutFunction)(TestResult, int, double*, int);
+/// <summary>
+/// Производит тестирование уравнения: принимает коэффициенты уравнения и ожидаемый результат, вычисляет собственный ответ и сравнивает
+/// </summary>
+/// <param name="out">Функция, которая выведет результат теста (куда - неважно). Если nullptr, то вывод игнорируется</param>
+/// <returns>true если тест верный и false иначе</returns>
 bool  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number, OutFunction out)
 {
 	assert(expected_roots != nullptr);
@@ -258,6 +313,9 @@ bool testEquation(double a, double b, double c, int expected_amount_of_roots, do
 	double roots[2] = { r1, r2 };
 	return systTestEquation(a, b, c, expected_amount_of_roots, roots, test_number, out);
 }
+/// <summary>
+/// Производит тестирование решения квадратного уравнения на некотором наборе примеров
+/// </summary>
 void testing()
 {
 	testEquation(1, -8, 15, 2, 3, 5, 1, outTestMessage);
