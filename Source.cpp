@@ -60,6 +60,7 @@ int solveLinear(double a, double b, double * res)
 
 int solveQuadratic(double a, double b, double c, double * res)
 {
+	assert(res != nullptr);
 	double b_half = b / 2;
 	double D_divided_by_4 = b_half * b_half - a * c;
 	if (wasOverflow(D_divided_by_4))
@@ -127,7 +128,7 @@ int main()
 		return 0;
 	}
 	
-	double roots[2];
+	double roots[2] = { nan(""), nan("") };
 	int amount_of_roots = solveEquation(a, b, c, roots);
 	outResult(amount_of_roots, roots);
 	getchar();
