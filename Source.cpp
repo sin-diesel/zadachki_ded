@@ -96,6 +96,7 @@ int solveEquation(double a, double b, double c, double* res)
 
 void outResult(int amount_of_roots, double* roots)
 {
+	assert(roots != nullptr);
 	switch (amount_of_roots)
 	{
 	case EQUATION_RESULT_OVERFLOW_ERROR:
