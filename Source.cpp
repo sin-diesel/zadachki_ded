@@ -194,52 +194,63 @@ bool equalRootsArray(double* a, double* b, int size)
 			return false;
 	return true;
 }
-void  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number)
+bool  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number, void (*out)(TestResult, int, double*, int))
 {
 	assert(expected_roots != nullptr);
 	double roots[2];
 	int amount = solveEquation(a, b, c, roots);
 	if (amount != expected_amount_of_roots)
 	{
-		outTestMessage(TEST_RESULT_DONT_MATCH_ROOTS_AMOUNTS, amount, roots, test_number);
+		if (out != nullptr)
+			out(TEST_RESULT_DONT_MATCH_ROOTS_AMOUNTS, amount, roots, test_number);
+		return false;
 	}
 	if (isCorrectRootsAmount(amount))
 	{
 		if (!equalRootsArray(roots, expected_roots, amount))
-			outTestMessage(TEST_RESULT_WRONG_ROOTS, amount, roots, test_number);
+		{
+			if (out != nullptr)
+				out(TEST_RESULT_WRONG_ROOTS, amount, roots, test_number);
+			return false;
+		}
 		else
-			outTestMessage(TEST_RESULT_OK, amount, roots, test_number);
+		{
+			if (out != nullptr)
+				out(TEST_RESULT_OK, amount, roots, test_number);
+			return true;
+		}
 	}
-	else
-		outTestMessage(TEST_RESULT_OK, amount, roots, test_number);
+	if (out != nullptr)
+		out(TEST_RESULT_OK, amount, roots, test_number);
+	return true;
 
 
 }
-void  testEquation(double a, double b, double c, int expected_amount_of_roots, int test_number)
+bool  testEquation(double a, double b, double c, int expected_amount_of_roots, int test_number, void (*out)(TestResult, int, double*, int))
 {
 	double roots;
-	systTestEquation(a, b, c, expected_amount_of_roots, &roots, test_number);
+	return systTestEquation(a, b, c, expected_amount_of_roots, &roots, test_number, out);
 }
-void testEquation(double a, double b, double c, int expected_amount_of_roots, double root, int test_number)
+bool testEquation(double a, double b, double c, int expected_amount_of_roots, double root, int test_number, void (*out)(TestResult, int, double*, int))
 {
-	systTestEquation(a, b, c, expected_amount_of_roots, &root, test_number);
+	return systTestEquation(a, b, c, expected_amount_of_roots, &root, test_number, out);
 }
-void testEquation(double a, double b, double c, int expected_amount_of_roots, double r1, double r2, int test_number)
+bool testEquation(double a, double b, double c, int expected_amount_of_roots, double r1, double r2, int test_number, void (*out)(TestResult, int, double*, int))
 {
 	double roots[2];
 	roots[0] = r1;
 	roots[1] = r2;
-	systTestEquation(a, b, c, expected_amount_of_roots, roots, test_number);
+	return systTestEquation(a, b, c, expected_amount_of_roots, roots, test_number, out);
 }
 void testing()
 {
-	testEquation(1, -8, 15, 2, 3, 5, 1);
-	testEquation(1, 2, 1, 1, -1, 2);
-	testEquation(1, 3, 15, EQUATION_RESULT_NO_ROOTS, 3);
-	testEquation(1, 0, -1, 2, 1, -1, 4);
-	testEquation(0, 0, 3, EQUATION_RESULT_NO_ROOTS, 5);
-	testEquation(0, 1, 3, 1, -3, 6);
-	testEquation(0, 0, 0, EQUATION_RESULT_INFINITE_ROOTS, 7);
+	testEquation(1, -8, 15, 2, 3, 5, 1, outTestMessage);
+	testEquation(1, 2, 1, 1, -1, 2, outTestMessage);
+	testEquation(1, 3, 15, EQUATION_RESULT_NO_ROOTS, 3, outTestMessage);
+	testEquation(1, 0, -1, 2, 1, -1, 4, outTestMessage);
+	testEquation(0, 0, 3, EQUATION_RESULT_NO_ROOTS, 5, outTestMessage);
+	testEquation(0, 1, 3, 1, -3, 6, outTestMessage);
+	testEquation(0, 0, 0, EQUATION_RESULT_INFINITE_ROOTS, 7, outTestMessage);
 
 }
 
