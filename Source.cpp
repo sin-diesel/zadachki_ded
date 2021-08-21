@@ -26,17 +26,28 @@ bool equal(double a, double b)
 	return absol(a - b) < PRECISION;
 }
 
+double getValue()
+{
+	double v = nan("");
 
+	scanf("%lf", v);
+	while (isnan(v))
+	{
+		printf("\nIncorrect input, enter again: ");
+		scanf("%lf", v);
+	}
+	return v;
+}
 void getCoefficients(double* a, double* b, double* c)
 {
 	assert(a != nullptr && b != nullptr && c != nullptr);
 	printf("Enter coefficients of A*x^2 + B*x + C == 0\nA:");
 	
-	scanf("%lf", a);
+	*a = getValue();
 	printf("B:");
-	scanf("%lf", b);
+	*b = getValue();
 	printf("C:");
-	scanf("%lf", c);
+	*c = getValue();
 }
 bool isCorrectRootsAmount(int n)
 {
@@ -199,7 +210,7 @@ typedef void (*OutFunction)(TestResult, int, double*, int);
 bool  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number, OutFunction out)
 {
 	assert(expected_roots != nullptr);
-	double roots[2];
+	double roots[2] = { nan(""), nan("") };
 	int amount = solveEquation(a, b, c, roots);
 	if (amount != expected_amount_of_roots)
 	{
@@ -230,7 +241,7 @@ bool  systTestEquation(double a, double b, double c, int expected_amount_of_root
 }
 bool  testEquation(double a, double b, double c, int expected_amount_of_roots, int test_number, OutFunction out)
 {
-	double roots;
+	double roots = nan("");
 	return systTestEquation(a, b, c, expected_amount_of_roots, &roots, test_number, out);
 }
 bool testEquation(double a, double b, double c, int expected_amount_of_roots, double root, int test_number, OutFunction out)
@@ -239,9 +250,7 @@ bool testEquation(double a, double b, double c, int expected_amount_of_roots, do
 }
 bool testEquation(double a, double b, double c, int expected_amount_of_roots, double r1, double r2, int test_number, OutFunction out)
 {
-	double roots[2];
-	roots[0] = r1;
-	roots[1] = r2;
+	double roots[2] = { r1, r2 };
 	return systTestEquation(a, b, c, expected_amount_of_roots, roots, test_number, out);
 }
 void testing()
