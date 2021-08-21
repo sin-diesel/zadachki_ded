@@ -93,13 +93,14 @@ int solveQuadratic(double a, double b, double c, double * res)
 int solveIncomplete(double a, double c, double* res)
 {
 	assert(res != nullptr);
-	if (c > 0)
-		return 0;
-	if (c == 0)
+	if (equal(c, 0.0))
 	{
 		res[0] = 0;
 		return 1;
 	}
+	if (c > 0)
+		return EQUATION_RESULT_NO_ROOTS;
+	
 	double mod = sqrt(-c) / a;
 	res[0] = mod;
 	res[1] = -mod;
