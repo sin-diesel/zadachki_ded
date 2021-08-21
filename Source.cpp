@@ -39,7 +39,7 @@ void getCoefficients(double* a, double* b, double* c)
 	scanf("%lf", c);
 }
 
-EquationResult solveLinear(double a, double b, double * res)
+int solveLinear(double a, double b, double * res)
 {
 	if (equal(a, 0.0))
 	{
@@ -53,12 +53,12 @@ EquationResult solveLinear(double a, double b, double * res)
 	{
 		
 		res[0] = -b / a;
-		return EquationResult(1);
+		return 1;
 	}
 
 }
 
-EquationResult solveQuadratic(double a, double b, double c, double * res)
+int solveQuadratic(double a, double b, double c, double * res)
 {
 	double b_half = b / 2;
 	double D_divided_by_4 = b_half * b_half - a * c;
@@ -70,7 +70,7 @@ EquationResult solveQuadratic(double a, double b, double c, double * res)
 	{
 		
 		res[0] = -b_half / a;
-		return EQUATION_RESULT_NO_ROOTS(1);
+		return 1;
 	}
 	else if (D_divided_by_4 < 0)
 	{
@@ -81,11 +81,11 @@ EquationResult solveQuadratic(double a, double b, double c, double * res)
 		double sq_root = sqrt(D_divided_by_4);
 		res[0] = (-b_half + sq_root) / a;
 		res[1] = (-b_half - sq_root) / a;
-		return EquationResult(2);
+		return 2;
 	}
 }
 
-EquationResult solveEquation(double a, double b, double c, double* res)
+int solveEquation(double a, double b, double c, double* res)
 {
 	assert(res != nullptr);
 	if (equal(a, 0.0))
@@ -93,7 +93,7 @@ EquationResult solveEquation(double a, double b, double c, double* res)
 	return solveQuadratic(a, b, c, res);
 }
 
-void outResult(EquationResult amount_of_roots, double* roots)
+void outResult(int amount_of_roots, double* roots)
 {
 	switch (amount_of_roots)
 	{
@@ -128,7 +128,7 @@ int main()
 	}
 	
 	double roots[2];
-	EquationResult amount_of_roots = solveEquation(a, b, c, roots);
+	int amount_of_roots = solveEquation(a, b, c, roots);
 	outResult(amount_of_roots, roots);
 	getchar();
 
