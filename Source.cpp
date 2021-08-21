@@ -194,7 +194,9 @@ bool equalRootsArray(double* a, double* b, int size)
 			return false;
 	return true;
 }
-bool  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number, void (*out)(TestResult, int, double*, int))
+
+typedef void (*OutFunction)(TestResult, int, double*, int);
+bool  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number, OutFunction out)
 {
 	assert(expected_roots != nullptr);
 	double roots[2];
@@ -226,16 +228,16 @@ bool  systTestEquation(double a, double b, double c, int expected_amount_of_root
 
 
 }
-bool  testEquation(double a, double b, double c, int expected_amount_of_roots, int test_number, void (*out)(TestResult, int, double*, int))
+bool  testEquation(double a, double b, double c, int expected_amount_of_roots, int test_number, OutFunction out)
 {
 	double roots;
 	return systTestEquation(a, b, c, expected_amount_of_roots, &roots, test_number, out);
 }
-bool testEquation(double a, double b, double c, int expected_amount_of_roots, double root, int test_number, void (*out)(TestResult, int, double*, int))
+bool testEquation(double a, double b, double c, int expected_amount_of_roots, double root, int test_number, OutFunction out)
 {
 	return systTestEquation(a, b, c, expected_amount_of_roots, &root, test_number, out);
 }
-bool testEquation(double a, double b, double c, int expected_amount_of_roots, double r1, double r2, int test_number, void (*out)(TestResult, int, double*, int))
+bool testEquation(double a, double b, double c, int expected_amount_of_roots, double r1, double r2, int test_number, OutFunction out)
 {
 	double roots[2];
 	roots[0] = r1;
