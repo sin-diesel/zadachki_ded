@@ -15,7 +15,7 @@ bool wasOverflow(double n)
 {
 	return isinf(n) || isnan(n);
 }
-double abs(double a)
+double absol(double a)
 {
 	return a > 0 ? a : -a;
 }
@@ -23,7 +23,7 @@ double abs(double a)
 const double PRECISION = 0.00001;
 bool equal(double a, double b)
 {
-	return abs(a - b) < PRECISION;
+	return absol(a - b) < PRECISION;
 }
 
 
