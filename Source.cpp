@@ -28,15 +28,17 @@ bool equal(double a, double b)
 
 double getValue()
 {
-	double v = nan("");
+	double value = nan("");
 
-	scanf("%lf", v);
-	while (isnan(v))
+	scanf("%lf", &value);
+	while (isnan(value))
 	{
+		char c;
+		while ((c = getchar()) != '\n' && c != EOF) {}
 		printf("\nIncorrect input, enter again: ");
-		scanf("%lf", v);
+		scanf("%lf", &value);
 	}
-	return v;
+	return value;
 }
 void getCoefficients(double* a, double* b, double* c)
 {
