@@ -1,4 +1,5 @@
 # zadachki_ded
+## Using as library
 Функция которая решает квадратичное уравнение.
 ```c
 solveEquations(double a, double b, double c, double * res)
@@ -9,4 +10,5 @@ solveEquations(double a, double b, double c, double * res)
 
 Корни можно вывести в консоль функцией `outResult()`, принимающей `EquationResult` и массив с корнями и выводящей подходящее сообщение.
 
+## Using as program
 Программа выполняет несколько тестов, после чего запрашивает пользователя ввести коэффициенты уравнения и решает это уравнения, выводя пользователю ответ
