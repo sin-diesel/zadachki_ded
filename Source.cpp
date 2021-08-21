@@ -194,7 +194,7 @@ bool equalRootsArray(double* a, double* b, int size)
 			return false;
 	return true;
 }
-void  _testEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number)
+void  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double* expected_roots, int test_number)
 {
 	assert(expected_roots != nullptr);
 	double roots[2];
@@ -218,18 +218,18 @@ void  _testEquation(double a, double b, double c, int expected_amount_of_roots, 
 void  testEquation(double a, double b, double c, int expected_amount_of_roots, int test_number)
 {
 	double roots;
-	_testEquation(a, b, c, expected_amount_of_roots, &roots, test_number);
+	systTestEquation(a, b, c, expected_amount_of_roots, &roots, test_number);
 }
 void testEquation(double a, double b, double c, int expected_amount_of_roots, double root, int test_number)
 {
-	_testEquation(a, b, c, expected_amount_of_roots, &root, test_number);
+	systTestEquation(a, b, c, expected_amount_of_roots, &root, test_number);
 }
 void testEquation(double a, double b, double c, int expected_amount_of_roots, double r1, double r2, int test_number)
 {
 	double roots[2];
 	roots[0] = r1;
 	roots[1] = r2;
-	_testEquation(a, b, c, expected_amount_of_roots, roots, test_number);
+	systTestEquation(a, b, c, expected_amount_of_roots, roots, test_number);
 }
 void testing()
 {
