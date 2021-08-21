@@ -25,7 +25,11 @@ bool equal(double a, double b)
 {
 	return absol(a - b) < PRECISION;
 }
-
+void clearBuff()
+{
+	char c;
+	while ((c = getchar()) != '\n' && c != EOF) {}
+}
 double getValue()
 {
 	double value = nan("");
@@ -33,8 +37,7 @@ double getValue()
 	scanf("%lf", &value);
 	while (isnan(value))
 	{
-		char c;
-		while ((c = getchar()) != '\n' && c != EOF) {}
+		clearBuff();
 		printf("\nIncorrect input, enter again: ");
 		scanf("%lf", &value);
 	}
