@@ -38,9 +38,13 @@ void getCoefficients(double* a, double* b, double* c)
 	printf("C:");
 	scanf("%lf", c);
 }
-
+bool isCorrectRootsAmount(int n)
+{
+	return n != EQUATION_RESULT_OVERFLOW_ERROR && n != EQUATION_RESULT_INFINITE_ROOTS;
+}
 int solveLinear(double a, double b, double * res)
 {
+	assert(res != nullptr);
 	if (equal(a, 0.0))
 	{
 		if (equal(b, 0.0))
@@ -86,11 +90,41 @@ int solveQuadratic(double a, double b, double c, double * res)
 	}
 }
 
+int solveIncomplete(double a, double c, double* res)
+{
+	assert(res != nullptr);
+	if (c > 0)
+		return 0;
+	if (c == 0)
+	{
+		res[0] = 0;
+		return 1;
+	}
+	double mod = sqrt(-c) / a;
+	res[0] = mod;
+	res[1] = -mod;
+	return 2;
+}
+int solveAlmostLinear(double a, double b, double* res)
+{
+	assert(!equal(b, 0) && res != nullptr);
+	int lin_res = solveLinear(a, b, res);
+	if (isCorrectRootsAmount(lin_res))
+	{
+		res[lin_res] = 0;
+		return lin_res + 1;
+	}
+	return lin_res;
+}
 int solveEquation(double a, double b, double c, double* res)
 {
 	assert(res != nullptr);
 	if (equal(a, 0.0))
 		return solveLinear(b, c, res);
+	else if (equal(b, 0.0))
+		return solveIncomplete(a, c, res);
+	else if (equal(c, 0.0))
+		return solveAlmostLinear(a, b, res);
 	return solveQuadratic(a, b, c, res);
 }
 
