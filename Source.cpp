@@ -5,7 +5,11 @@
 #include <limits.h>
 #include "equation.h"
 #include "test.h"
-
+void clearBuff()
+{
+	char c;
+	while ((c = getchar()) != '\n' && c != EOF) {}
+}
 /// <summary>
 /// asks for enter double input to console until input is correct
 /// </summary>
@@ -19,7 +23,7 @@ double getValue(const char * message)
 	scanf("%lf", &value);
 	while (isnan(value) || getchar() != '\n')
 	{
-		rewind(stdin);
+		clearBuff();
 		printf("\nIncorrect input, enter again: ");
 		scanf("%lf", &value);
 	}
@@ -56,9 +60,9 @@ int main()
 		return 0;
 	}
 	
-	double roots[2] = { nan(""), nan("") };
-	int amount_of_roots = solveEquation(a, b, c, roots);
-	outResult(amount_of_roots, roots);
+	RootsPair roots;
+	int amount_of_roots = solveEquation(a, b, c, &roots);
+	outResult(amount_of_roots, &roots);
 
 	getchar();
 

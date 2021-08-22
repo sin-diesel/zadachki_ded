@@ -10,7 +10,7 @@
 /// <param name="amount"></param>
 /// <param name="roots"></param>
 /// <param name="test_number"></param>
-void outErrorTestMessage(TestResult test, int amount, double roots[], int test_number)
+void outErrorTestMessage(TestResult test, int amount, const RootsPair* roots, int test_number)
 {
 	assert(roots != nullptr);
 	printf("Error in test %d:\n", test_number);
@@ -36,7 +36,7 @@ void outErrorTestMessage(TestResult test, int amount, double roots[], int test_n
 /// <param name="amount"></param>
 /// <param name="roots"></param>
 /// <param name="test_number"></param>
-void outTestMessage(TestResult test, int amount, double roots[], int test_number)
+void outTestMessage(TestResult test, int amount, const RootsPair* roots, int test_number)
 {
 	assert(roots != nullptr);
 	if (test == TEST_RESULT_OK)
@@ -51,12 +51,20 @@ void outTestMessage(TestResult test, int amount, double roots[], int test_number
 /// <param name="b">array with size equall to size of a</param>
 /// <param name="size">size of these two arrays</param>
 /// <returns>true if sets are match independetly of order</returns>
-bool equalRootsArray(double a[], double b[], int size)
+bool equalRootsArray(const RootsPair* a, const RootsPair* b, int size)
 {
 	assert(a != nullptr && b != nullptr);
-	for (int i = 0; i < size; ++i)
-		if (!equal(a[i], b[i]) && !equal(a[size - i - 1], b[i]))
-			return false;
+	switch (size)
+	{
+	case 0:
+		return true;
+	case 1:
+		return equal(a->r1, b->r1);
+	case 2:
+		return (equal(a->r1, b->r1) && equal(a->r2, b->r2)) || (equal(a->r1, b->r2) && equal(a->r2, b->r1));
+	default:
+		assert(false);
+	}
 	return true;
 }
 
@@ -72,34 +80,34 @@ bool equalRootsArray(double a[], double b[], int size)
 /// <param name="test_number"></param>
 /// <param name="out">function that logs test result somehow</param>
 /// <returns>true if test is correct and false otherwise</returns>
-bool  systTestEquation(double a, double b, double c, int expected_amount_of_roots, double expected_roots[], int test_number, OutFunction out)
+bool  systTestEquation(double a, double b, double c, int expected_amount_of_roots, const RootsPair* expected_roots, int test_number, OutFunction out)
 {
 	assert(expected_roots != nullptr);
-	double roots[2] = { nan(""), nan("") };
-	int amount = solveEquation(a, b, c, roots);
+	RootsPair roots;
+	int amount = solveEquation(a, b, c, &roots);
 	if (amount != expected_amount_of_roots)
 	{
 		if (out != nullptr)
-			out(TEST_RESULT_DONT_MATCH_ROOTS_AMOUNTS, amount, roots, test_number);
+			out(TEST_RESULT_DONT_MATCH_ROOTS_AMOUNTS, amount, &roots, test_number);
 		return false;
 	}
 	if (isCorrectRootsAmount(amount))
 	{
-		if (!equalRootsArray(roots, expected_roots, amount))
+		if (!equalRootsArray(&roots, expected_roots, amount))
 		{
 			if (out != nullptr)
-				out(TEST_RESULT_WRONG_ROOTS, amount, roots, test_number);
+				out(TEST_RESULT_WRONG_ROOTS, amount, &roots, test_number);
 			return false;
 		}
 		else
 		{
 			if (out != nullptr)
-				out(TEST_RESULT_OK, amount, roots, test_number);
+				out(TEST_RESULT_OK, amount, &roots, test_number);
 			return true;
 		}
 	}
 	if (out != nullptr)
-		out(TEST_RESULT_OK, amount, roots, test_number);
+		out(TEST_RESULT_OK, amount, &roots, test_number);
 	return true;
 
 
@@ -107,21 +115,21 @@ bool  systTestEquation(double a, double b, double c, int expected_amount_of_root
 
 bool  testEquation(double a, double b, double c, int expected_amount_of_roots, int test_number, OutFunction out)
 {
-	double roots = nan("");
+	RootsPair roots;
 	return systTestEquation(a, b, c, expected_amount_of_roots, &roots, test_number, out);
 }
 bool testEquation(double a, double b, double c, int expected_amount_of_roots, double root, int test_number, OutFunction out)
 {
-	return systTestEquation(a, b, c, expected_amount_of_roots, &root, test_number, out);
+	RootsPair roots;
+	roots.r1 = root;
+	return systTestEquation(a, b, c, expected_amount_of_roots, &roots, test_number, out);
 }
 bool testEquation(double a, double b, double c, int expected_amount_of_roots, double r1, double r2, int test_number, OutFunction out)
 {
-	double roots[2] = { r1, r2 };
-	return systTestEquation(a, b, c, expected_amount_of_roots, roots, test_number, out);
+	RootsPair roots = { r1, r2 };
+	return systTestEquation(a, b, c, expected_amount_of_roots, &roots, test_number, out);
 }
-/// <summary>
-/// test solving equation module on some prepared tests
-/// </summary>
+
 
 void testing()
 {
