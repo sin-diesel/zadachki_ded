@@ -7,7 +7,7 @@
 ## Использование как библиотеку
 Функция которая решает квадратное уравнение.
 ```c
-solveEquations(double a, double b, double c, double * res)
+solveEquations(double a, double b, double c, double res[])
 ```
 Принимает числа a, b, c - коэффициенты уравнения, а также массив res, куда будет записан результат. Массив должен быть как минимум размера 2.
 Возвращаемое значение `EquationResult` равно `EQUATION_RESULT_OVERFLOW_ERROR`, если произошла ошибка переполнения, `EQUATION_RESULT_NO_ROOTS`, если корней нет,
