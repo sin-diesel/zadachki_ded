@@ -8,15 +8,12 @@ bool wasOverflow(double n)
 {
 	return isinf(n) || isnan(n);
 }
-double absol(double a)
-{
-	return a > 0 ? a : -a;
-}
+
 
 
 bool equal(double a, double b)
 {
-	return absol(a - b) < PRECISION;
+	return fabs(a - b) < PRECISION;
 }
 bool isCorrectRootsAmount(int n)
 {
