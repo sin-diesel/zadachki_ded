@@ -1,0 +1,19 @@
+digraph "solveAlmostLinear"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="solveAlmostLinear",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="solves quadratic equation that looks like x(ax+b)==0"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="solveEquation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#af076dfe8392a5c30f70f59ee460303a5",tooltip="solves quadratic equation at all cases"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_source_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4",tooltip=" "];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="systTestEquation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test_8cpp.html#a636d0f29a3e5f6ee6fd45e991b62426c",tooltip="gets equation and expected result, solves equation and checks if result is matching with expected"];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="testEquation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test_8cpp.html#a1ab7ab59b008364cd28af2ab46a35f40",tooltip="Test one equation"];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="testing",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test_8cpp.html#a0fb23245f06f731e5a3ee2465feb2976",tooltip="test solving equation module on some prepared tests"];
+  Node6 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

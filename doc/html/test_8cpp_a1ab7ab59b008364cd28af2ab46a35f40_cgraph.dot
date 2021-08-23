@@ -1,0 +1,35 @@
+digraph "testEquation"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="testEquation",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Test one equation"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="systTestEquation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test_8cpp.html#a636d0f29a3e5f6ee6fd45e991b62426c",tooltip="gets equation and expected result, solves equation and checks if result is matching with expected"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="equalRootsArray",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test_8cpp.html#a213ce09de5d32af5fb099e93e019acbb",tooltip="checks if sets of roots are match"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="equal",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#a1591fe891371002ed473166e626dc2a3",tooltip=" "];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="isCorrectRootsAmount",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#a1a0d165db691b219d57d147d35503a15",tooltip=" "];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="solveEquation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#af076dfe8392a5c30f70f59ee460303a5",tooltip="solves quadratic equation at all cases"];
+  Node6 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="solveAlmostLinear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#a3a4a930e537a908db6f62863da338081",tooltip="solves quadratic equation that looks like x(ax+b)==0"];
+  Node7 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="solveLinear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#aa43f85eaf6ee4bb70ef883153c537d42",tooltip="Solves linear equation"];
+  Node8 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="solveIncomplete",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#acfaaa05731cb2dec0c6f76002b1ea485",tooltip="solves quadratic equation without coefficient of linear member"];
+  Node9 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="solveQuadratic",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#af9d5a1f4d1fbfcc14a1ac02f570f9633",tooltip="solves full quadratic equation"];
+  Node10 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="wasOverflow",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$equation_8cpp.html#a3e5480c9c4ad462a5517e23cda2abb08",tooltip=" "];
+}
